@@ -1,46 +1,95 @@
 ﻿import React, { useState } from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const LoginForm = () => {
+    const [form, setForm] = useState({ username: "", password: "" });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Aquí puedes realizar la lógica de autenticación o enviar los datos a un servidor
-        console.log("Email:", email);
-        console.log("Password:", password);
+    const handleChanges = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value
+        });
+    };
+
+    const iniciarSesion = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "name": form.username,
+            "email": "",
+            "password": form.password
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/api/contacto/Autenticar", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+                if (result === "Autenticación exitosa") {
+                    window.location.href = "/App";
+                    console.log("Bienvenido");
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+            })
+            .catch(error => console.log('error', error));
+    };
+
+
+    const handleForgotPassword = () => {
+        // Redireccionar a otra página al presionar el enlace "¿Olvidaste tu contraseña?"
+        window.location.href = "/App";
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <FormGroup>
-                <Label for="email">Email</Label>
-                <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Ingrese su email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="password">Contraseña</Label>
-                <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Ingrese su contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </FormGroup>
-            <Button color="primary" type="submit">
-                Iniciar sesión
-            </Button>
-        </Form>
+        <Container>
+            <Row>
+                <Col sm={{ size: 6, offset: 3 }}>
+                    <Form className="login-form" onSubmit={iniciarSesion}>
+                        <h2>Iniciar sesión</h2>
+                        <FormGroup>
+                            <Label for="username">Nombre de usuario</Label>
+                            <Input
+                                type="text"
+                                name="username"
+                                id="username"
+                                placeholder="Ingrese su nombre de usuario"
+                                value={form.username}
+                                onChange={handleChanges}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="password">Contraseña</Label>
+                            <Input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Ingrese su contraseña"
+                                value={form.password}
+                                onChange={handleChanges}
+                            />
+                        </FormGroup>
+                        <Button color="primary" type="submit" className="btn-login">
+                            Iniciar sesión
+                        </Button>
+                        <p className="forgot-password" onClick={handleForgotPassword} style={{ margin: '30px', color:"blue" }}>
+                            ¿Olvidaste tu contraseña?
+                        </p>
+                    </Form>
+                </Col>
+            </Row>
+            
+            <Button style={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' } } color="success" type="submit" className="btn-login" onClick={() => window.location.href = "/Palindromos"}>Palindromo</Button>
+        </Container>
     );
 };
 
-export default Login;
+export default LoginForm;

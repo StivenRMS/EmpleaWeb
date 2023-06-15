@@ -58,5 +58,27 @@ namespace EmpleaWeb.Controllers
             return StatusCode(StatusCodes.Status200OK, "ok");
 
         }
+
+        [HttpPost]
+        [Route("Autenticar")]
+        public async Task<IActionResult> Autenticar([FromBody] TbUsuario usuario)
+        {
+            // Verificar si el usuario y contraseña coinciden en la tabla "Usuarios"
+            var usuarioAutenticado = await _dbcontext.TbUsuarios.FirstOrDefaultAsync(u => u.Name == usuario.Name && u.Password == usuario.Password);
+
+            if (usuarioAutenticado == null)
+            {
+                // El usuario y/o contraseña son incorrectos
+                return StatusCode(StatusCodes.Status401Unauthorized, "Usuario o contraseña incorrectos");
+            }
+
+            // Autenticación exitosa, puedes realizar acciones adicionales aquí si es necesario
+
+            return StatusCode(StatusCodes.Status200OK, "Autenticación exitosa");
+        }
+
+
+
+
     }
 }
