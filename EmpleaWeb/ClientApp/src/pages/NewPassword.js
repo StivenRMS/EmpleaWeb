@@ -40,7 +40,7 @@ const ResetPasswordPage = () => {
             .then(response => response.text())
             .then(result => {
                 console.log(result);
-                // Aquí puedes manejar la respuesta de la API 
+                // Aquí para manejar la respuesta de la API 
                 alert("Contraseña restablecida exitosamente");
                 if (result === "ok") {
                     window.location.href = "/"

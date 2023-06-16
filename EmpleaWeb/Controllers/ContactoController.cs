@@ -73,7 +73,7 @@ namespace EmpleaWeb.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized, "Usuario o contraseña incorrectos");
             }
 
-            // Autenticación exitosa, puedes realizar acciones adicionales aquí si es necesario
+            // Autenticación exitosa
 
             return StatusCode(StatusCodes.Status200OK, "Autenticación exitosa");
         }
@@ -92,7 +92,6 @@ namespace EmpleaWeb.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized, "El correo electrónico y/o fecha de nacimiento son incorrectos");
             }
 
-            // Autenticación exitosa, puedes realizar acciones adicionales aquí si es necesario
 
             return StatusCode(StatusCodes.Status200OK, "Autenticación exitosa");
         }
@@ -101,7 +100,7 @@ namespace EmpleaWeb.Controllers
         [Route("EnviarCorreoToken")]
         public IActionResult EnviarCorreoToken([FromBody] Correo correo)
         {
-            // Aquí irá tu lógica para enviar el correo electrónico con el token
+            
 
             // Configurar los detalles del correo
             string remitente = "recoverytokenpass@gmail.com";
@@ -158,7 +157,7 @@ namespace EmpleaWeb.Controllers
             // Obtener el token_recovery del usuario autenticado
             string tokenRecovery = usuarioAutenticado.TokenRecovery;
 
-            // Autenticación exitosa, puedes realizar acciones adicionales aquí si es necesario
+            // Autenticación exitosa
 
             return StatusCode(StatusCodes.Status200OK, tokenRecovery);
         }
