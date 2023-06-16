@@ -69,6 +69,7 @@ const PalindromeFinder = () => {
                         />
                     </FormGroup>
                 </Col>
+                <Button size="sm" color="danger" onClick={() => window.location.href = "/"}>Regresar</Button>
             </Row>
         </Container>
     );

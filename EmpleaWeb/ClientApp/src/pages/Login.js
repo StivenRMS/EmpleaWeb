@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from "reac
 
 const LoginForm = () => {
     const [form, setForm] = useState({ username: "", password: "" });
-
+    const [isLoading, setIsLoading] = useState(false); 
     const handleChanges = (e) => {
         const { name, value } = e.target;
         setForm({
@@ -13,6 +13,7 @@ const LoginForm = () => {
     };
 
     const iniciarSesion = async () => {
+        setIsLoading(true);
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -29,21 +30,23 @@ const LoginForm = () => {
             redirect: 'follow'
         };
 
-        console.log("=====>", form.password, form.username);
+        try {
+            const response = await fetch("/api/contacto/Autenticar", requestOptions);
+            const result = await response.text();
+            console.log(result);
 
-        fetch("/api/contacto/Autenticar", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                console.log(result);
-                if (result === "Autenticación exitosa") {
-                    window.location.href = "/App";
-                    console.log("Bienvenido");
-                } else {
-                    alert("Usuario o contraseña incorrectos");
-                }
-            })
-            .catch(error => console.log('error', error));
+            if (result === "Autenticación exitosa") {
+                setIsLoading(false);
+                window.location.href = "/App";
+                console.log("Bienvenido");
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
     };
+
 
 
     const handleForgotPassword = () => {
@@ -80,7 +83,7 @@ const LoginForm = () => {
                             />
                         </FormGroup>
                         <Button color="primary" type="submit" className="btn-login">
-                            Iniciar sesión
+                            {isLoading ? "Cargando..." : "Iniciar sesión"}
                         </Button>
                         <p className="forgot-password" onClick={handleForgotPassword} style={{ margin: '30px', color: "blue" }}>
                             ¿Olvidaste tu contraseña?

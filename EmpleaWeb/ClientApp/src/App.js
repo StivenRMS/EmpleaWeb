@@ -124,6 +124,7 @@ const App = () => {
                             <TablaEmpleados data={empleado} setEditar={setEditar} mostrarModal={mostrarModal} setMostrarModal={setMostrarModal} eliminarEmpleado={eliminarEmpleado } />
                         </CardBody>
                     </Card>
+                    <Button size="sm" color="danger" onClick={() => window.location.href = "/"}>Cerrar Seccion</Button>
                 </Col>
             </Row>
 
