@@ -29,6 +29,8 @@ const LoginForm = () => {
             redirect: 'follow'
         };
 
+        console.log("=====>", form.password, form.username);
+
         fetch("/api/contacto/Autenticar", requestOptions)
             .then(response => response.text())
             .then(result => {
@@ -46,7 +48,7 @@ const LoginForm = () => {
 
     const handleForgotPassword = () => {
         // Redireccionar a otra página al presionar el enlace "¿Olvidaste tu contraseña?"
-        window.location.href = "/App";
+        window.location.href = "/RecoveryPass";
     };
 
     return (
@@ -80,14 +82,14 @@ const LoginForm = () => {
                         <Button color="primary" type="submit" className="btn-login">
                             Iniciar sesión
                         </Button>
-                        <p className="forgot-password" onClick={handleForgotPassword} style={{ margin: '30px', color:"blue" }}>
+                        <p className="forgot-password" onClick={handleForgotPassword} style={{ margin: '30px', color: "blue" }}>
                             ¿Olvidaste tu contraseña?
                         </p>
                     </Form>
                 </Col>
             </Row>
-            
-            <Button style={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' } } color="success" type="submit" className="btn-login" onClick={() => window.location.href = "/Palindromos"}>Palindromo</Button>
+
+            <Button style={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }} color="success" type="submit" className="btn-login" onClick={() => window.location.href = "/Palindromos"}>Palindromo</Button>
         </Container>
     );
 };
