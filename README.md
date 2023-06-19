@@ -1,5 +1,5 @@
 # EmpleaWeb
-Proyecto de Gestión de Empleados
+## Proyecto de Gestión de Empleados
 En un proyecto personal, desarrollé un sistema de gestión de empleados utilizando ASP.NET, ReactJS y SQL Server.
 
 Tecnologías utilizadas: ASP.NET, ReactJS, SQL Server.
@@ -19,4 +19,4 @@ En la base de datos, implementé Triggers para la actualización automática del
 Adquisición de experiencia
 Este proyecto me permitió adquirir experiencia en el desarrollo de aplicaciones web, seguridad y optimización de bases de datos.
 
-¡Espero que esto sea lo que estabas buscando! Si necesitas ayuda adicional, no dudes en preguntar.
+
